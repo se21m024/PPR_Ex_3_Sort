@@ -1,4 +1,4 @@
-# Parallel Programming<br/>Exercise 2<br/>Mandelbrot
+# Parallel Programming<br/>Exercise 3<br/>Parallel Sorting
 
 # Student 1: Thomas Bründl
 
@@ -7,6 +7,8 @@
 <br/>
 
 ## Approach
+
+# <b>"Todo: change from Mandelbrot to sorting description"</b>
 
 We measured the time required to perform the necessary calculations for the Mandelbrot set.<br/><br/>
 For the serial base line we implemented two nested for loops iterating over each row (outer for loop) and each column (inner for loop). In every iteration the color of one pixel is calculated.<br/><br/>
