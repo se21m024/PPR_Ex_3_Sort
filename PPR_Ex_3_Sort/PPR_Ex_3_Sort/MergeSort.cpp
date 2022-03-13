@@ -14,7 +14,7 @@
 using namespace std::chrono;
 using namespace std;
 
-void MergeSort::Sequential(vector<unsigned int> arrayToBeSorted)
+void MergeSort::Sequential(vector<unsigned int> arr)
 {
 	auto startTimeStamp = high_resolution_clock::now();
 
@@ -25,7 +25,7 @@ void MergeSort::Sequential(vector<unsigned int> arrayToBeSorted)
 	cout << "MergeSort serial duration: " << durationMs << " ms." << endl;
 }
 
-void MergeSort::Parallel(vector<unsigned int> arrayToBeSorted, int cores)
+void MergeSort::Parallel(vector<unsigned int> arr, int cores)
 {
 	auto startTimeStamp = high_resolution_clock::now();
 
@@ -36,7 +36,7 @@ void MergeSort::Parallel(vector<unsigned int> arrayToBeSorted, int cores)
 	cout << "MergeSort parallel with " << to_string(cores) << " cores, duration: " << to_string(durationMs) << " ms." << endl;
 }
 
-void MergeSort::ParallelWithThreshold(vector<unsigned int> arrayToBeSorted, int cores, int threshold)
+void MergeSort::ParallelWithThreshold(vector<unsigned int> arr, int cores, int threshold)
 {
 	auto startTimeStamp = high_resolution_clock::now();
 

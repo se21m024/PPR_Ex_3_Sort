@@ -65,6 +65,13 @@ int main()
 
 		cout << endl;
 
+		for (int i = 0; i < arrayToBeSorted.size(); i++)
+		{
+			cout << "#" << to_string(i) << ": " << to_string(arrayToBeSorted[i]) << endl;
+		}
+
+		cout << endl;
+
 		MergeSort::Sequential(arrayToBeSorted);
 
 		for (int cores = 2; cores <= coresOnMachine; cores++)
