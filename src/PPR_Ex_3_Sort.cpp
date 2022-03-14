@@ -3,7 +3,7 @@
 	Exercise 3
 	Sorting Algorithms
 
-	Student 1: Thomas Br�ndl
+	Student 1: Thomas Bründl
 	Student 2: Thomas Stummer
 */
 
@@ -13,10 +13,6 @@
 #include <iostream>
 #include <omp.h>
 #include <stdio.h>
-#include <ostream>
-#include <chrono>
-#include <iostream>
-#include <tuple>
 #include <vector>
 #include <string>
 #include <thread>
@@ -33,7 +29,6 @@ vector<unsigned int> getRandomNumbers(int arraySize)
 	for (int i = 0; i < arraySize; i++)
 	{
 		numbers[i] = rand();
-		// cout << "#" << to_string(i) << ": " << to_string(numbers[i]) << endl;
 	}
 
 	return numbers;
@@ -41,7 +36,7 @@ vector<unsigned int> getRandomNumbers(int arraySize)
 
 int main()
 {
-	int coresOnMachine = 3; // thread::hardware_concurrency();
+	int coresOnMachine = 12; // thread::hardware_concurrency();
 
 	if (coresOnMachine < 2)
 	{
@@ -49,36 +44,35 @@ int main()
 	}
 	else
 	{
-		const int ArraySize = 100000;
-		const int Threshold = 3;
+		const unsigned int ArraySize = 5000000;
+		const int Threshold = 500000;
 
 		auto arrayToBeSorted = getRandomNumbers(ArraySize);
+
 		cout << endl;
 
 		QuickSort::sequential(arrayToBeSorted);
 
-		for (int cores = 2; cores <= coresOnMachine; cores++)
+		for (int threads = 2; threads <= coresOnMachine; threads++)
 		{
-			QuickSort::parallel(arrayToBeSorted, cores);
-			QuickSort::parallelWithThreshold(arrayToBeSorted, cores, Threshold);
+			omp_set_num_threads(threads);
+
+			// The parallel version without threshold is very (!) slow
+			// QuickSort::parallel(arrayToBeSorted, threads);
+			QuickSort::parallelWithThreshold(arrayToBeSorted, threads, Threshold);
 		}
-
-		/*cout << endl;
-
-		for (int i = 0; i < arrayToBeSorted.size(); i++)
-		{
-			cout << "#" << to_string(i) << ": " << to_string(arrayToBeSorted[i]) << endl;
-		}*/
 
 		cout << endl;
 
-		MergeSort::sequential(arrayToBeSorted);
+		// MergeSort::sequential(arrayToBeSorted);
 
-		for (int cores = 2; cores <= coresOnMachine; cores++)
-		{
-			MergeSort::parallel(arrayToBeSorted, cores);
-			MergeSort::parallelWithThreshold(arrayToBeSorted, cores, Threshold);
-		}
+		// for (int threads = 2; threads <= threadsOnMachine; threads++)
+		// {
+		// 	MergeSort::parallel(arrayToBeSorted, threads);
+		// 	MergeSort::parallelWithThreshold(arrayToBeSorted, threads, Threshold);
+		// }
+
+		cout << endl;
 	}
 
 	return 0;
