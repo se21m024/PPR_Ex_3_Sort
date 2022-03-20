@@ -106,7 +106,6 @@ void MergeSort::sequential(vector<unsigned int> arr)
 
 	auto startTimeStamp = high_resolution_clock::now();
 
-	// Todo: Sort array
 	mergeSort(arr, 0, arr.size() - 1);
 
 	auto stopTimeStamp = high_resolution_clock::now();
@@ -118,21 +117,12 @@ void MergeSort::parallel(vector<unsigned int> arr, int threads)
 {
 	auto startTimeStamp = high_resolution_clock::now();
 
-	// Todo: Sort array
-
 #pragma omp parallel
 	{
 #pragma omp single nowait
 		parallelMergeSort(arr, 0, arr.size() - 1);
 #pragma omp taskwait
 	}
-
-	// 	#pragma omp parallel
-	//     {
-	// #pragma omp single nowait
-	//         parallelQuickSort(arr, 0, arr.size() - 1);
-	// #pragma omp taskwait
-	//     }
 
 	auto stopTimeStamp = high_resolution_clock::now();
 	auto durationMs = duration_cast<microseconds>(stopTimeStamp - startTimeStamp).count() / 1000;
@@ -142,8 +132,6 @@ void MergeSort::parallel(vector<unsigned int> arr, int threads)
 void MergeSort::parallelWithThreshold(vector<unsigned int> arr, int threads, int threshold)
 {
 	auto startTimeStamp = high_resolution_clock::now();
-
-	// Todo: Sort array
 
 #pragma omp parallel
 	{
