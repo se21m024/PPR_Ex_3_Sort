@@ -1,36 +1,65 @@
 # Parallel Programming<br/>Exercise 3<br/>Parallel Sorting
 
-# Student 1: Thomas Bründl
+### Student 1: Thomas Bründl
 
-# Student 2: Thomas Stummer
+### Student 2: Thomas Stummer
 
 <br/>
 
-## Approach
+# Approach
 
-# <b>"Todo: change from Mandelbrot to sorting description"</b>
+We measured the required time to order 500000 randomly generated numbers via Quicksort and Mergesort.<br/><br/>
+We implemented the quick and mergesort in three different variations:
 
-We measured the time required to perform the necessary calculations for the Mandelbrot set.<br/><br/>
-For the serial base line we implemented two nested for loops iterating over each row (outer for loop) and each column (inner for loop). In every iteration the color of one pixel is calculated.<br/><br/>
-For the parallel implementation the generall general strucutre with nested for loops remained unchanged. We decided to to assign each row to one thread in round robin style. So if e.g. 6 threads were used, thread 0 got rows 0, 6, 12, 18, etc. and thread 1 got rows 1, 7, 13, 19, etc. and so on. We took this approach in the assumption to split the work that needs to be done amount the different threads in an even way (in contrast to assigning thread 0 the first x rows, thread 1 the next x rows and so on). To distribute the work, we used the <i>omp parallel</i> pragma because for us it seemed the most straight forward way to assign a sub set of fields of the shared vector v to each thread that can be filled intependently. With this approach no manual merging of data was necessary.
+1. serial version,
+2. a parallel version
+3. a parallel version with threshold.<br/><br/>
 
-![Mandelbrot](./Screenshots/Mandelbrot.png)
-
-<div style="page-break-after: always"></div>
-
-## Speedup Analysis
-
-The following benchmark was performed with an image resolution of 1024 x 1024 pixel on a machine with 12 logical CPU cores:
-<br/><br/>
-![Benchmarks](./Screenshots/ConsoleOutput.png)
-<br/><br/>
-
-![Total Calculation Time](./Screenshots/TotalCalcTime.png)
+To distribute the work, we used the <i>#pragma omp task</i> because for us it seemed the most straight forward way to execute tree structured recursions in parallel. The parallel approach was tested with 1 to 12 logical cpu cores.
 
 <div style="page-break-after: always"></div>
-This leads to the following speedup quotient:
 
-![Speedup Quotient](./Screenshots/SpeedupQuotient.png)
+# Results
 
-<br/><br/>
-It can be seen, that the speedup quotient increased very linear until about 6 threads. From 6 to 8 threads a very slight decrease in the slope can be observed. At 10 threads another decrease in the slope can be seen. When using 12 threads, the slope (surprisingly) increased again. In summary, the speedup quotient is quite quite linear until the number of threads used reaches nearly the maximum number of available (logical) CPU cores.
+## Sequential QuickSort
+
+The serial-quicksort version was performed with 500000 random numbers and took 144 ms to order all numbers.
+
+## Parallel QuickSort
+
+The parallel quicksort without a threshold performs poorly. It takes 303122 ms to sort the 500000 numbers.
+
+## Parallel QuickSort with threshold
+
+The following graph shows the required ms to sort via parallel quicksort with threshold. It also shows the speedup in relation to the sequential sorting time (144ms). This method performs better than the previous due to efficient thread usage.
+
+![Benchmarks](./Screenshots/quicksort-parallel-threshold-speedup-1.PNG)
+
+## Sequential Mergesort
+
+The serial-mergesort was also performed with 500000 random numbers and took 471 ms to order all numbers.
+
+## Parallel Mergesort
+
+The following graph shows the result of the parallel mergesort (without threshold). We can see that multithreading does not have a positive effect on the calculation time.
+
+![Benchmarks](./Screenshots/mergesort-parallel-speedup-2.PNG)
+
+## Parallel Mergesort with threshold
+
+The following graph shows the calcuation time and the speedup in relation to the sequential mergesort time (471ms).
+
+![Benchmarks](./Screenshots/mergesort-parallel-threshold-3.PNG)
+
+## Parallel QuickSort - Threshold Comparison
+
+It can be seen, that the parallel quicksort operates better with 2 threads with a threshold of 200000 than with 50000.
+However, when the thread number is increased we can see that the parallel quicksort operates better with a threshold of 50000.
+
+![Benchmarks](./Screenshots/quicksort-parallel-threshold-comparison-4.PNG)
+
+## Parallel MergeSort - Threshold Comparison
+
+It can be seen, that a threshold of around 50000 seems to be the fastest option when it comes to parallel mergesort with multithreading.
+
+![Benchmarks](./Screenshots/mergesort-parallel-threshold-comparison-5.PNG)
