@@ -17,9 +17,6 @@
 #include <string>
 #include <thread>
 
-#include "MergeSort.cpp"
-#include "QuickSort.cpp"
-
 using namespace std::chrono;
 using namespace std;
 
@@ -50,7 +47,7 @@ int main()
 	}
 	else
 	{
-		const unsigned int ArraySize = 5000000;
+		const unsigned int ArraySize = 500000;
 		const int Threshold = 500000;
 
 		auto arrayToBeSorted = getRandomNumbers(ArraySize);

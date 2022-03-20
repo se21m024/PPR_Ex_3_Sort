@@ -7,7 +7,7 @@ using namespace std;
 class MergeSort
 {
 public:
-	static void sequential(vector<unsigned int> arrayToBeSorted);
-	static void parallel(vector<unsigned int> arrayToBeSorted, int threads);
-	static void parallelWithThreshold(vector<unsigned int> arrayToBeSorted, int threads, int threshold);
+	static void sequential(vector<unsigned int> arr);
+	static void parallel(vector<unsigned int> arr, int threads);
+	static void parallelWithThreshold(vector<unsigned int> arr, int threads, int threshold);
 };
