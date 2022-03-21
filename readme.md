@@ -27,7 +27,7 @@ The serial-quicksort version was performed with 500000 random numbers and took 1
 
 ## Parallel QuickSort
 
-The parallel quicksort without a threshold performs poorly. It takes 303122 ms to sort the 500000 numbers.
+The parallel quicksort without a threshold performs poorly. It takes 303122 ms to sort the 500000 numbers on 12 threads. This is a demonstrative example for the phenomenon of oversubscription. The cost to create and manage new tasks far outweighs the benefit, the parallel execution provides.
 
 ## Parallel QuickSort with threshold
 
@@ -35,13 +35,15 @@ The following graph shows the required ms to sort via parallel quicksort with th
 
 ![Benchmarks](./Screenshots/quicksort-parallel-threshold-speedup-1.PNG)
 
+<div style="page-break-after: always;"></div>
+
 ## Sequential Mergesort
 
 The serial-mergesort was also performed with 500000 random numbers and took 471 ms to order all numbers.
 
 ## Parallel Mergesort
 
-The following graph shows the result of the parallel mergesort (without threshold). We can see that multithreading does not have a positive effect on the calculation time.
+The following graph shows the result of the parallel mergesort (without threshold). We can see that multithreading does not have a positive effect on the calculation time. As mentioned when discussing the results for the Quicksort implementation, task oversubscription is likely to lead to this arbitrary results.
 
 ![Benchmarks](./Screenshots/mergesort-parallel-speedup-2.PNG)
 
@@ -50,6 +52,8 @@ The following graph shows the result of the parallel mergesort (without threshol
 The following graph shows the calcuation time and the speedup in relation to the sequential mergesort time (471ms).
 
 ![Benchmarks](./Screenshots/mergesort-parallel-threshold-3.PNG)
+
+<div style="page-break-after: always;"></div>
 
 ## Parallel QuickSort - Threshold Comparison
 

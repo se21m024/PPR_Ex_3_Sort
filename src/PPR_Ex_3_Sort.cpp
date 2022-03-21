@@ -54,36 +54,26 @@ int main()
 		cout << endl;
 
 		//----QUICK_SORT_SEQUENTIAL--------------------------------------------------------------------------------
-		// QuickSort::sequential(arrayToBeSorted);
+		QuickSort::sequential(arrayToBeSorted);
+
 		//----MERGE_SORT_SEQUENTIAL--------------------------------------------------------------------------------
-		// MergeSort::sequential(arrayToBeSorted);
+		MergeSort::sequential(arrayToBeSorted);
 
 		for (int threads = 2; threads <= coresOnMachine; threads++)
 		{
 			omp_set_num_threads(threads);
+
 			//----QUICK_SORT_PARALLEL--------------------------------------------------------------------------------
-			// The parallel version without threshold is very (!) slow
+			// The parallel version without threshold is very (!) slow -> therefore commented
 			// QuickSort::parallel(arrayToBeSorted, threads);
-			// QuickSort::parallelWithThreshold(arrayToBeSorted, threads, Threshold);
+			QuickSort::parallelWithThreshold(arrayToBeSorted, threads, Threshold);
+
 			//----MERGE_SORT_PARALLEL--------------------------------------------------------------------------------
-			// MergeSort::parallel(arrayToBeSorted, threads);
+			MergeSort::parallel(arrayToBeSorted, threads);
 			MergeSort::parallelWithThreshold(arrayToBeSorted, threads, Threshold);
 		}
 
 		cout << endl;
-
-		// for (int threads = 2; threads <= threadsOnMachine; threads++)
-		// {
-		// 	MergeSort::parallel(arrayToBeSorted, threads);
-		// 	MergeSort::parallelWithThreshold(arrayToBeSorted, threads, Threshold);
-		// }
-
-		cout << endl;
-
-		// for (int i = 0; i < arrayToBeSorted.size(); ++i)
-		// {
-		// 	cout << arrayToBeSorted[i] << ' ';
-		// }
 	}
 
 	cin.get();
